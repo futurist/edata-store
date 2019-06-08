@@ -2,7 +2,9 @@ import edata from 'edata';
 /**
  * The default Global Cache for all the store
  */
-export var defaultCache = {};
+export var defaultCache = {
+    '': {}
+};
 /**
  * Get store from seperate namespace
  * @param namespace {string} The namespace of global cache store
@@ -12,7 +14,8 @@ export var defaultCache = {};
  */
 export function getStore(namespace, initStore, cache) {
     if (initStore === void 0) { initStore = (function (e) { return edata({}); }); }
-    if (cache === void 0) { cache = defaultCache; }
+    if (cache === void 0) { cache = defaultCache['']; }
+    namespace = namespace || '';
     return namespace in cache ? cache[namespace] : cache[namespace] = initStore({ namespace: namespace, cache: cache });
 }
 /**
@@ -23,9 +26,11 @@ export function getStore(namespace, initStore, cache) {
  */
 export function getStore2(namespace1, cache) {
     if (cache === void 0) { cache = defaultCache; }
+    namespace1 = namespace1 || '';
     var namedCache = namespace1 in cache ? cache[namespace1] : cache[namespace1] = {};
     return function (namespace2, initStore) {
         if (initStore === void 0) { initStore = (function (e) { return edata({}); }); }
+        namespace2 = namespace2 || '';
         return getStore(namespace2, initStore, namedCache);
     };
 }
