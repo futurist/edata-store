@@ -8,4 +8,4 @@ getStore('ii').set('oioi', {xx: 1})
 
 assert.deepEqual(defaultCache.xx.aa.unwrap(), {xx:1, yy:2})
 assert.deepEqual(defaultCache.yy.bb.unwrap(), {})
-assert.deepEqual(defaultCache.ii.unwrap(), {oioi: {xx: 1}})
+assert.deepEqual(defaultCache[''].ii.unwrap(), {oioi: {xx: 1}})
