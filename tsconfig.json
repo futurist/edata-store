@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./umd/",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "module": "umd",
+        "target": "es5",
+        "lib": ["es5", "es6", "dom"]
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
