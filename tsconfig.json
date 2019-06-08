@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "outDir": "./umd/",
-        "sourceMap": true,
+        "sourceMap": false,
+        "pretty": true,
+        "declaration": true,
         "moduleResolution": "node",
         "noImplicitAny": false,
         "module": "umd",
