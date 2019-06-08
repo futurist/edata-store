@@ -7,7 +7,7 @@ Easily use global store with [edata](https://www.npmjs.com/package/edata).
 
 ### Install
 
-You can install from [NPM](https://www.npmjs.com/package/edata-store), or use files in `lib`.
+You can install from [NPM](https://www.npmjs.com/package/edata-store).
 
 ```sh
 npm install --save edata-store
@@ -15,12 +15,22 @@ npm install --save edata-store
 
 ### Usage
 
+simply `getStore()`, and you got an [edata](https://www.npmjs.com/package/edata) instance.
+
 ```js
 // any where in your source
 import {getStore} from 'edata-store'
-getStore('xx_space').set('xx', 1)
-getStore('xx_space').get('xx').toJSON() // 1
+getStore().set('xx', 1)
+getStore().get('xx').toJSON() // 1
 ```
+
+Or pass the `namespace` arg:
+```js
+getStore('xx_space').set('xx', 2)
+getStore('xx_space').get('xx').toJSON() // 2
+```
+
+Above create a separate `edata` under `xx_space` namespace.
 
 ### API
 
@@ -30,7 +40,7 @@ The typescript definition as below:
 
 /**
  * Get store from seperate namespace
- * @param namespace {string} The namespace of global cache store
+ * @param namespace {string} The namespace of global cache store, fallback to ''
  * @param initStore {Function} init function for first init namespace
  * @param cache {Object} The global cache store
  * @returns {edataRoot} The edata root instance
@@ -40,7 +50,7 @@ export declare function getStore(namespace: string, initStore?: (e: any) => edat
 
 /**
  * Get 2 levels store from global cache store
- * @param namespace1 {string} The level1 namespace of global cache store, namespace2 is level1
+ * @param namespace1 {string} The level1 namespace of global cache store, namespace2 is level1, fallback to ''
  * @param cache {Object} The global cache store
  * @returns {Function} (namespace2: string, initStore = (e => edata({}))) => edataRoot
  */
