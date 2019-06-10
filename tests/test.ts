@@ -1,13 +1,11 @@
 import * as assert from 'assert'
-import {storeConfig, getStore, getStore2} from '../src/index'
+import pluginActions from 'edata/plugins/actions'
+import {cacheStore, getStore, initStore} from '../src/index'
 
-const defaultCache = storeConfig.cache
-
-getStore2('xx')('aa').set('xx', 1)
-getStore2('xx')('aa').set('yy', 2)
-getStore2('yy')('bb')
+initStore('ii', {yy: 10})
 getStore('ii').set('oioi', {xx: 1})
+assert.deepEqual(cacheStore.ii.unwrap(), {yy:10, oioi: {xx: 1}})
 
-assert.deepEqual(defaultCache.xx.aa.unwrap(), {xx:1, yy:2})
-assert.deepEqual(defaultCache.yy.bb.unwrap(), {})
-assert.deepEqual(defaultCache[''].ii.unwrap(), {oioi: {xx: 1}})
+assert.throws(()=>getStore('xx.yy'))
+assert.ok(initStore('xx.yy', {ok: 1}, {plugins: [pluginActions]}))
+assert.ok(getStore('xx.yy').dispatch)

@@ -1,20 +1,19 @@
-import { edataRoot } from 'edata';
+import { edataRoot, IOptions } from 'edata';
 /**
  * The default Global Cache for all the store
  */
-export declare const storeConfig: any;
+export declare const cacheStore: any;
 /**
- * Get store from seperate namespace
- * @param namespace {string} The namespace of global cache store
- * @param initStore {Function} init function for first init namespace
- * @param cache {Object} The global cache store
+ * Init store for namespace, after that you can call getStore
+ * @param namespace {string} The namespace of cacheStore
+ * @param initData {any} The edata initData
+ * @param edataConfig {IOptions} The edata init iOptions
  * @returns {edataRoot} The edata root instance
  */
-export declare function getStore(namespace?: string, initStore?: (e: any) => edataRoot, cache?: any): edataRoot;
+export declare function initStore(namespace?: string, initData?: any, edataConfig?: Partial<IOptions>): edataRoot;
 /**
- * Get 2 levels store from global cache store
- * @param namespace1 {string} The level1 namespace of global cache store, namespace2 is level1
- * @param cache {Object} The global cache store
- * @returns {Function} (namespace2: string, initStore = (e => edata({}))) => edataRoot
+ * Get store using namespace from cacheStore
+ * @param namespace {string} The namespace of cacheStore
+ * @returns {edataRoot} The edata root instance
  */
-export declare function getStore2(namespace1?: string, cache?: any): (namespace2?: string, initStore?: (e: any) => edataRoot) => edataRoot;
+export declare function getStore(namespace?: string): edataRoot;
