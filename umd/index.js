@@ -15,16 +15,21 @@
      */
     exports.cacheStore = {};
     /**
-     * Init store for namespace, after that you can call getStore
+     * Initialize store for namespace, after that you can call getStore
      * @param namespace {string} The namespace of cacheStore, empty for 'default'
      * @param initData {any} The edata initData
-     * @param edataConfig {IOptions} The edata init iOptions
+     * @param edataOptions {IOptions} The edata Initialize IOptions
      * @returns {edataRoot} The edata root instance
      */
-    function initStore(namespace, initData, edataConfig) {
-        if (namespace === void 0) { namespace = 'default'; }
+    function initStore(namespace, initData, edataOptions) {
         if (initData === void 0) { initData = {}; }
-        return exports.cacheStore[namespace] = edata_1.default(initData, edataConfig);
+        var ns = nomalizeNamespace(namespace);
+        if (ns in exports.cacheStore) {
+            throw new Error("'" + ns + "' in edataStore already initialized!");
+        }
+        else {
+            return exports.cacheStore[ns] = edata_1.default(initData, edataOptions);
+        }
     }
     exports.initStore = initStore;
     /**
@@ -33,13 +38,16 @@
      * @returns {edataRoot} The edata root instance
      */
     function getStore(namespace) {
-        if (namespace === void 0) { namespace = 'default'; }
-        if (namespace in exports.cacheStore) {
-            return exports.cacheStore[namespace];
+        var ns = nomalizeNamespace(namespace);
+        if (ns in exports.cacheStore) {
+            return exports.cacheStore[ns];
         }
         else {
-            throw new Error("cannot find '" + namespace + "' in edataStore, please call \"initStore('" + namespace + "')\" first!");
+            throw new Error("cannot find '" + ns + "' in edataStore, please call \"initStore('" + ns + "')\" first!");
         }
     }
     exports.getStore = getStore;
+    function nomalizeNamespace(namespace) {
+        return namespace == null ? 'default' : String(namespace);
+    }
 });

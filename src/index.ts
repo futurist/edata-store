@@ -6,14 +6,19 @@ import edata, { edataRoot, IOptions } from 'edata'
 export const cacheStore:any = {}
 
 /**
- * Init store for namespace, after that you can call getStore
+ * Initialize store for namespace, after that you can call getStore
  * @param namespace {string} The namespace of cacheStore, empty for 'default'
  * @param initData {any} The edata initData
- * @param edataConfig {IOptions} The edata init iOptions
+ * @param edataOptions {IOptions} The edata Initialize IOptions
  * @returns {edataRoot} The edata root instance
  */
-export function initStore(namespace: string = 'default', initData:any = {}, edataConfig?: Partial<IOptions>): edataRoot {
-    return cacheStore[namespace] = edata(initData, edataConfig)
+export function initStore(namespace?: string, initData:any = {}, edataOptions?: Partial<IOptions>): edataRoot {
+    const ns = nomalizeNamespace(namespace)
+    if(ns in cacheStore){
+        throw new Error(`'${ns}' in edataStore already initialized!`)
+    } else {
+        return cacheStore[ns] = edata(initData, edataOptions)
+    }
 }
 
 /**
@@ -21,10 +26,15 @@ export function initStore(namespace: string = 'default', initData:any = {}, edat
  * @param namespace {string} The namespace of cacheStore, empty for 'default'
  * @returns {edataRoot} The edata root instance
  */
-export function getStore(namespace: string = 'default'): edataRoot {
-    if(namespace in cacheStore){
-        return cacheStore[namespace]
+export function getStore(namespace?: string): edataRoot {
+    const ns = nomalizeNamespace(namespace)
+    if(ns in cacheStore){
+        return cacheStore[ns]
     } else {
-        throw new Error(`cannot find '${namespace}' in edataStore, please call "initStore('${namespace}')" first!`)
+        throw new Error(`cannot find '${ns}' in edataStore, please call "initStore('${ns}')" first!`)
     }
+}
+
+function nomalizeNamespace(namespace) {
+    return namespace == null ? 'default' : String(namespace)
 }

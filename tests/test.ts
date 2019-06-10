@@ -7,6 +7,15 @@ initStore()
 assert.ok(cacheStore.default)
 assert.deepEqual(getStore().unwrap(), {})
 
+// should not init twice
+assert.throws(()=>initStore(null))
+
+// default with null
+delete cacheStore['default']
+initStore(null, {x:1})
+assert.ok(cacheStore.default)
+assert.deepEqual(getStore(null).unwrap(), {x:1})
+
 // namespace
 initStore('xx', {yy: 10})
 getStore('xx').set('zz', {xx: 1})

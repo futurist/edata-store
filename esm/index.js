@@ -4,16 +4,21 @@ import edata from 'edata';
  */
 export var cacheStore = {};
 /**
- * Init store for namespace, after that you can call getStore
+ * Initialize store for namespace, after that you can call getStore
  * @param namespace {string} The namespace of cacheStore, empty for 'default'
  * @param initData {any} The edata initData
- * @param edataConfig {IOptions} The edata init iOptions
+ * @param edataOptions {IOptions} The edata Initialize IOptions
  * @returns {edataRoot} The edata root instance
  */
-export function initStore(namespace, initData, edataConfig) {
-    if (namespace === void 0) { namespace = 'default'; }
+export function initStore(namespace, initData, edataOptions) {
     if (initData === void 0) { initData = {}; }
-    return cacheStore[namespace] = edata(initData, edataConfig);
+    var ns = nomalizeNamespace(namespace);
+    if (ns in cacheStore) {
+        throw new Error("'" + ns + "' in edataStore already initialized!");
+    }
+    else {
+        return cacheStore[ns] = edata(initData, edataOptions);
+    }
 }
 /**
  * Get store using namespace from cacheStore
@@ -21,11 +26,14 @@ export function initStore(namespace, initData, edataConfig) {
  * @returns {edataRoot} The edata root instance
  */
 export function getStore(namespace) {
-    if (namespace === void 0) { namespace = 'default'; }
-    if (namespace in cacheStore) {
-        return cacheStore[namespace];
+    var ns = nomalizeNamespace(namespace);
+    if (ns in cacheStore) {
+        return cacheStore[ns];
     }
     else {
-        throw new Error("cannot find '" + namespace + "' in edataStore, please call \"initStore('" + namespace + "')\" first!");
+        throw new Error("cannot find '" + ns + "' in edataStore, please call \"initStore('" + ns + "')\" first!");
     }
+}
+function nomalizeNamespace(namespace) {
+    return namespace == null ? 'default' : String(namespace);
 }
