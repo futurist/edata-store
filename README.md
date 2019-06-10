@@ -15,18 +15,27 @@ npm install --save edata-store
 
 ### Usage
 
-simply `getStore()`, and you got an [edata](https://www.npmjs.com/package/edata) instance.
+1. Initialize store using `initStore` (normally at your entry file)
+
+```js
+import {initStore} from 'edata-store'
+initStore()
+// OR
+initStore(`namespace`)
+```
+
+2. call `getStore()`, and you get an [edata](https://www.npmjs.com/package/edata) instance. (normally at your component file)
 
 ```js
 // any where in your source
 import {getStore} from 'edata-store'
-getStore().set('xx', 1)
+getStore().set('xx', 1)  // empty arg: `''` namespace
 getStore().get('xx').toJSON() // 1
 ```
 
 Or pass the `namespace` arg:
 ```js
-getStore('xx_space').set('xx', 2)
+getStore('xx_space').set('xx', 2)  // `xx_space` namespace
 getStore('xx_space').get('xx').toJSON() // 2
 ```
 
@@ -37,24 +46,20 @@ Above create a separate `edata` under `xx_space` namespace.
 The typescript definition as below:
 
 ```typescript
-
 /**
- * Get store from seperate namespace
- * @param namespace {string} The namespace of global cache store, fallback to ''
- * @param initStore {Function} init function for first init namespace
- * @param cache {Object} The global cache store
+ * Init store for namespace, after that you can call getStore
+ * @param namespace {string} The namespace of cacheStore
+ * @param initData {any} The edata initData
+ * @param edataConfig {IOptions} The edata init iOptions
  * @returns {edataRoot} The edata root instance
  */
-export declare function getStore(namespace: string, initStore?: (e: any) => edataRoot, cache?: any): edataRoot;
 
-
+export declare function initStore(namespace?: string, initData?: any, edataConfig?: Partial<IOptions>): edataRoot;
 /**
- * Get 2 levels store from global cache store
- * @param namespace1 {string} The level1 namespace of global cache store, namespace2 is level1, fallback to ''
- * @param cache {Object} The global cache store
- * @returns {Function} (namespace2: string, initStore = (e => edata({}))) => edataRoot
+ * Get store using namespace from cacheStore
+ * @param namespace {string} The namespace of cacheStore
+ * @returns {edataRoot} The edata root instance
  */
-export declare function getStore2(namespace1: string, cache?: any): (namespace2: string, initStore?: (e: any) => edataRoot) => edataRoot;
-
+export declare function getStore(namespace?: string): edataRoot;
 ```
 
