@@ -7,21 +7,21 @@ export const cacheStore:any = {}
 
 /**
  * Init store for namespace, after that you can call getStore
- * @param namespace {string} The namespace of cacheStore
+ * @param namespace {string} The namespace of cacheStore, empty for 'default'
  * @param initData {any} The edata initData
  * @param edataConfig {IOptions} The edata init iOptions
  * @returns {edataRoot} The edata root instance
  */
-export function initStore(namespace: string = '', initData?:any, edataConfig?: Partial<IOptions>): edataRoot {
+export function initStore(namespace: string = 'default', initData:any = {}, edataConfig?: Partial<IOptions>): edataRoot {
     return cacheStore[namespace] = edata(initData, edataConfig)
 }
 
 /**
  * Get store using namespace from cacheStore
- * @param namespace {string} The namespace of cacheStore
+ * @param namespace {string} The namespace of cacheStore, empty for 'default'
  * @returns {edataRoot} The edata root instance
  */
-export function getStore(namespace: string = ''): edataRoot {
+export function getStore(namespace: string = 'default'): edataRoot {
     if(namespace in cacheStore){
         return cacheStore[namespace]
     } else {

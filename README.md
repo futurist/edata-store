@@ -19,9 +19,9 @@ npm install --save edata-store
 
 ```js
 import {initStore} from 'edata-store'
-initStore()
+initStore() // `'default'` namespace
 // OR
-initStore(`namespace`)
+initStore(`xx_space`)
 ```
 
 2. call `getStore()`, and you get an [edata](https://www.npmjs.com/package/edata) instance. (normally at your component file)
@@ -29,13 +29,13 @@ initStore(`namespace`)
 ```js
 // any where in your source
 import {getStore} from 'edata-store'
-getStore().set('xx', 1)  // empty arg: `''` namespace
+getStore().set('xx', 1)  // `'default'` namespace
 getStore().get('xx').toJSON() // 1
 ```
 
 Or pass the `namespace` arg:
 ```js
-getStore('xx_space').set('xx', 2)  // `xx_space` namespace
+getStore('xx_space').set('xx', 2)  // `'xx_space'` namespace
 getStore('xx_space').get('xx').toJSON() // 2
 ```
 
