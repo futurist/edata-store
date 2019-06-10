@@ -2,7 +2,7 @@ import { edataRoot } from 'edata';
 /**
  * The default Global Cache for all the store
  */
-export declare const defaultCache: any;
+export declare const storeConfig: any;
 /**
  * Get store from seperate namespace
  * @param namespace {string} The namespace of global cache store

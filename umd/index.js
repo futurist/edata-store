@@ -13,8 +13,11 @@
     /**
      * The default Global Cache for all the store
      */
-    exports.defaultCache = {
-        '': {}
+    exports.storeConfig = {
+        cache: {
+            '': {}
+        },
+        edata: {}
     };
     /**
      * Get store from seperate namespace
@@ -24,8 +27,8 @@
      * @returns {edataRoot} The edata root instance
      */
     function getStore(namespace, initStore, cache) {
-        if (initStore === void 0) { initStore = (function (e) { return edata_1.default({}); }); }
-        if (cache === void 0) { cache = exports.defaultCache['']; }
+        if (initStore === void 0) { initStore = (function (e) { return edata_1.default({}, exports.storeConfig.edata); }); }
+        if (cache === void 0) { cache = exports.storeConfig.cache['']; }
         namespace = namespace || '';
         return namespace in cache ? cache[namespace] : cache[namespace] = initStore({ namespace: namespace, cache: cache });
     }
@@ -37,11 +40,11 @@
      * @returns {Function} (namespace2: string, initStore = (e => edata({}))) => edataRoot
      */
     function getStore2(namespace1, cache) {
-        if (cache === void 0) { cache = exports.defaultCache; }
+        if (cache === void 0) { cache = exports.storeConfig.cache; }
         namespace1 = namespace1 || '';
         var namedCache = namespace1 in cache ? cache[namespace1] : cache[namespace1] = {};
         return function (namespace2, initStore) {
-            if (initStore === void 0) { initStore = (function (e) { return edata_1.default({}); }); }
+            if (initStore === void 0) { initStore = (function (e) { return edata_1.default({}, exports.storeConfig.edata); }); }
             namespace2 = namespace2 || '';
             return getStore(namespace2, initStore, namedCache);
         };

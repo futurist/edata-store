@@ -1,5 +1,7 @@
 import * as assert from 'assert'
-import {defaultCache, getStore, getStore2} from '../src/index'
+import {storeConfig, getStore, getStore2} from '../src/index'
+
+const defaultCache = storeConfig.cache
 
 getStore2('xx')('aa').set('xx', 1)
 getStore2('xx')('aa').set('yy', 2)
