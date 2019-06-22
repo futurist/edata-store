@@ -16,7 +16,7 @@
     exports.cacheStore = {};
     /**
      * Initialize store for namespace, after that you can call getStore
-     * @param namespace {string} The namespace of cacheStore, empty for 'default'
+     * @param namespace {string} The namespace of cacheStore, empty for ''
      * @param initData {any} The edata initData
      * @param edataOptions {IOptions} The edata Initialize IOptions
      * @returns {edataRoot} The edata root instance
@@ -34,7 +34,7 @@
     exports.initStore = initStore;
     /**
      * Get store using namespace from cacheStore
-     * @param namespace {string} The namespace of cacheStore, empty for 'default'
+     * @param namespace {string} The namespace of cacheStore, empty for ''
      * @returns {edataRoot} The edata root instance
      */
     function getStore(namespace) {
@@ -48,6 +48,6 @@
     }
     exports.getStore = getStore;
     function nomalizeNamespace(namespace) {
-        return namespace == null ? 'default' : String(namespace);
+        return namespace == null ? '' : String(namespace);
     }
 });

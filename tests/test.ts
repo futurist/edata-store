@@ -4,16 +4,16 @@ import {cacheStore, getStore, initStore} from '../src/index'
 
 // default
 initStore()
-assert.ok(cacheStore.default)
+assert.ok(cacheStore[''])
 assert.deepEqual(getStore().unwrap(), {})
 
 // should not init twice
 assert.throws(()=>initStore(null))
 
 // default with null
-delete cacheStore['default']
+delete cacheStore['']
 initStore(null, {x:1})
-assert.ok(cacheStore.default)
+assert.ok(cacheStore[''])
 assert.deepEqual(getStore(null).unwrap(), {x:1})
 
 // namespace
