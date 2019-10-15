@@ -17,7 +17,7 @@
   "author": "James Yang <26634873@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "edata": "^0.8.5"
+    "edata": "^0.9.5"
   },
   "devDependencies": {
     "@types/node": "^12.0.7",
